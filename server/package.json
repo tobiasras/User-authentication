@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "The server for food recipe app",
+  "main": "app.js",
+  "scripts": {
+    "setup-database":"node ./database/createDatabase.js",
+    "reset-database":"node ./database/createDatabase.js reset",
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-rate-limit": "^6.7.0",
+    "dotenv": "^16.0.3",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.6",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "helmet": "^6.1.5",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-semistandard": "^17.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobiasras/food-recipe-app.git"
+  },
+  "author": "tobiasras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tobiasras/food-recipe-app/issues"
+  },
+  "homepage": "https://github.com/tobiasras/food-recipe-app#readme"
+}
