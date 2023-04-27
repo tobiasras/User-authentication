@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.notification{
+
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    width: 35%;
+    text-align: center;
+    padding: 0.5em;
+    transform: translate(-50%, -50%);
+}
+
+.notification-warning{
+    background: #f69898;
+}
+
+.notification-success{
+    background: #aaf68c;
+}

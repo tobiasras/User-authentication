@@ -1,4 +1,5 @@
 import db from './connection.js'
+import bcrypt from 'bcrypt'
 
 const isResetMode = process.argv.indexOf('reset') !== -1
 
@@ -12,9 +13,21 @@ if (isResetMode) {
 db.exec(`
     CREATE TABLE IF NOT EXISTS users
     (
-        id       INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id  INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
         name     TEXT,
-        password TEXT
+        password TEXT,
+        email    TEXT
+    );
+`)
+
+db.exec(`
+    CREATE TABLE IF NOT EXISTS refresh_tokens
+    (
+        id      INTEGER PRIMARY KEY AUTOINCREMENT,
+        token   TEXT,
+        user_id INTEGER,
+        FOREIGN KEY (user_id) REFERENCES users (user_id)
     );
 `)
 
@@ -46,6 +59,19 @@ db.exec(`
         foreign key (episode_id) REFERENCES episodes (episode_id)
     );
 `)
+
+const generatePassword = async (plainText) => {
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(plainText, salt)
+}
+
+const password1 = await generatePassword('password')
+const password2 = await generatePassword('1234')
+
+db.exec(`INSERT INTO users (name, username, password, email)
+         VALUES ('Tobias juul rasmussen', 'tobiasras', '${password1}', 'tobiasras.job@gmail.com');`)
+db.exec(`INSERT INTO users (name, username, password, email)
+         VALUES ('per', 'postman per', '${password2}', 'tobiasras@gmail.com');`)
 
 db.exec('INSERT INTO seasons (season) VALUES (1);')
 db.exec('INSERT INTO seasons (season) VALUES (2);')
